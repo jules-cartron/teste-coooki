@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page avec Cookie</title>
+    <script>
+        function sauvegarderDansCookie() {
+            var valeur = document.getElementById("inputText").value;
+            document.cookie = "monCookie=" + valeur;
+            afficherCookie();
+        }
+
+        function afficherCookie() {
+            var cookieValeur = getCookie("monCookie");
+            var affichageDiv = document.getElementById("affichage");
+            if (cookieValeur !== "") {
+                affichageDiv.innerText = "Dernière valeur enregistrée : " + cookieValeur;
+            } else {
+                affichageDiv.innerText = "";
+            }
+        }
+
+        function getCookie(nom) {
+            var nomEQ = nom + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nomEQ) == 0) return c.substring(nomEQ.length,c.length);
+            }
+            return null;
+        }
+
+        window.onload = afficherCookie;
+    </script>
+</head>
+<body>
+    <h1>Page avec Cookie</h1>
+    <input type="text" id="inputText">
+    <button onclick="sauvegarderDansCookie()">Valider</button>
+    <div id="affichage"></div>
+</body>
+</html>
